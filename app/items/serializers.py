@@ -2,10 +2,10 @@ from rest_framework import serializers
 from .models import Item
 
 
-
 class ItemSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=20)
+    count = serializers.IntegerField()
 
-
-    class Meta:
-        model = Item
-        fields = "__all__"
+    def create(self, validated_data):
+        item = Item.objects.create(**validated_data)
+        return item
